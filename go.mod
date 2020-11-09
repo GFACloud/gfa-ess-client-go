@@ -1,0 +1,8 @@
+module github.com/gfacloud/gfa-ess-sdk-go
+
+go 1.14
+
+require (
+	github.com/go-resty/resty/v2 v2.3.0
+	github.com/satori/go.uuid v1.2.0
+)
