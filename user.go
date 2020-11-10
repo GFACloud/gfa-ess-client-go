@@ -16,7 +16,7 @@ type User struct {
 
 // CreateUser creates an ess user.
 func (c *Client) CreateUser(user *User) (err error) {
-	url := fmt.Sprintf("http://%s//api/user/create", c.opts.Addr)
+	url := fmt.Sprintf("http://%s/api/user/create", c.opts.Addr)
 
 	params := map[string]string{
 		"email":    user.Email,
