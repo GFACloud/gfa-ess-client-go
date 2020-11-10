@@ -61,10 +61,16 @@ func checkOptions(opts *Options) error {
 func (c *Client) postObject(url string, body interface{}) (interface{}, error) {
 	var result Response
 
+	token, err := c.GetToken()
+	if err != nil {
+		return nil, err
+	}
+
 	resp, err := c.httpClient.R().
 		SetBody(body).
 		SetResult(&result).
 		SetHeader("Content-Type", "application/json").
+		SetHeader("token_access", token).
 		Post(url)
 	if err != nil {
 		return nil, err
@@ -79,47 +85,29 @@ func (c *Client) postObject(url string, body interface{}) (interface{}, error) {
 	return result.Data, nil
 }
 
-// GetToken gets access token from ess service.
-func (c *Client) GetToken() (token string, err error) {
-	url := fmt.Sprintf("http://%s/api/gettoken", c.opts.Addr)
-
+func (c *Client) postParams(url string, params map[string]string) (interface{}, error) {
 	var result Response
-	params := map[string]string{
-		"appkey":    c.opts.AppKey,
-		"appsecret": c.opts.AppSecret,
+
+	token, err := c.GetToken()
+	if err != nil {
+		return nil, err
 	}
+
 	resp, err := c.httpClient.R().
 		SetQueryParams(params).
 		SetResult(&result).
 		SetHeader("Content-Type", "application/x-www-form-urlencoded").
+		SetHeader("token_access", token).
 		Post(url)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.IsError() {
-		return "", fmt.Errorf("%v %v", resp.Status(), resp.Error())
+		return nil, fmt.Errorf("%v %v", resp.Status(), resp.Error())
 	}
 	if result.Code != 0 {
-		return "", fmt.Errorf("%v %v", result.Code, result.Msg)
+		return nil, fmt.Errorf("%v %v", result.Code, result.Msg)
 	}
 
-	v, ok := result.Data.(map[string]interface{})
-	if !ok {
-		err = fmt.Errorf("response data invalid: %v", result.Data)
-		return
-	}
-
-	tv, found := v["accessToken"]
-	if !found {
-		err = fmt.Errorf("response data invalid: %v", v)
-		return
-	}
-
-	token, ok = tv.(string)
-	if !ok {
-		err = fmt.Errorf("response data invalid: %v", tv)
-		return
-	}
-
-	return token, nil
+	return result.Data, nil
 }
