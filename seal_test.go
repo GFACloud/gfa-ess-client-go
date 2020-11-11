@@ -1,10 +1,7 @@
 package esssdk
 
 import (
-	"encoding/base64"
 	"fmt"
-	"io/ioutil"
-	"strings"
 	"testing"
 )
 
@@ -39,21 +36,4 @@ func TestCreateSeal(t *testing.T) {
 		t.Fatalf("CreateSeal failed: %v", err)
 	}
 	fmt.Println("SealID: ", seal.UUID)
-}
-
-func readTestFile(filename string) (contentBase64 string, fileType string, err error) {
-	content, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return
-	}
-	contentBase64 = base64.StdEncoding.EncodeToString(content)
-
-	items := strings.Split(filename, ".")
-	if len(items) >= 2 {
-		fileType = items[len(items)-1]
-	} else {
-		fileType = "png"
-	}
-
-	return
 }
