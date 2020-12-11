@@ -6,12 +6,12 @@ import (
 
 // GetToken gets access token from ess service.
 func (c *Client) GetToken() (token string, err error) {
-	url := fmt.Sprintf("http://%s/api/gettoken", c.opts.Addr)
+	url := fmt.Sprintf("http://%s/ess/api/getToken", c.opts.Addr)
 
 	var result Response
 	params := map[string]string{
-		"appkey":    c.opts.AppKey,
-		"appsecret": c.opts.AppSecret,
+		"appKey":    c.opts.AppKey,
+		"appSecret": c.opts.AppSecret,
 	}
 	resp, err := c.httpClient.R().
 		SetQueryParams(params).

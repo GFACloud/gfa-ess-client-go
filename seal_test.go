@@ -10,9 +10,9 @@ func TestCreateSeal(t *testing.T) {
 
 	// 新建客户端
 	opts := &Options{
-		AppKey:    "76c14d72-4338-46af-aa81-9887c91267eb",
-		AppSecret: "97c9ab81186dd17a1a8f09b22be4cbbc5a083c36",
-		Addr:      "211.88.18.140:2020",
+		AppKey:    "4028e5e5765587b801765593f8940003",
+		AppSecret: "94073bf0a7d94c4f15a58e7077edaa9d21eacd9c",
+		Addr:      "211.88.18.140:30080",
 	}
 	c, err := NewClient(opts)
 	if err != nil {
@@ -36,4 +36,29 @@ func TestCreateSeal(t *testing.T) {
 		t.Fatalf("CreateSeal failed: %v", err)
 	}
 	fmt.Println("SealID: ", seal.UUID)
+}
+
+func TestCreatePersonalSeal(t *testing.T) {
+	t.SkipNow()
+
+	// 新建客户端
+	opts := &Options{
+		AppKey:    "4028e5e5765587b801765593f8940003",
+		AppSecret: "94073bf0a7d94c4f15a58e7077edaa9d21eacd9c",
+		Addr:      "211.88.18.140:30080",
+	}
+	c, err := NewClient(opts)
+	if err != nil {
+		t.Fatalf("NewClient failed: %v", err)
+	}
+
+	seal := &PersonalSeal{
+		Name:   "张三的人名章",
+		CertSN: "1765f4525a5",
+	}
+	err = c.CreatePersonalSeal(seal)
+	if err != nil {
+		t.Fatalf("CreatePersonalSeal failed: %v", err)
+	}
+	fmt.Println("人名章ID: ", seal.UUID)
 }

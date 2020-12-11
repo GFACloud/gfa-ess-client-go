@@ -6,9 +6,9 @@ import (
 
 func TestNewClient(t *testing.T) {
 	opts := &Options{
-		AppKey:    "76c14d72-4338-46af-aa81-9887c91267eb",
-		AppSecret: "97c9ab81186dd17a1a8f09b22be4cbbc5a083c36",
-		Addr:      "211.88.18.140:2020",
+		AppKey:    "4028e5e5765587b801765593f8940003",
+		AppSecret: "94073bf0a7d94c4f15a58e7077edaa9d21eacd9c",
+		Addr:      "211.88.18.140:30080",
 	}
 	c, err := NewClient(opts)
 	if err != nil {

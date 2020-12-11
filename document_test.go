@@ -10,9 +10,9 @@ func TestCreateDocument(t *testing.T) {
 
 	// 新建客户端
 	opts := &Options{
-		AppKey:    "76c14d72-4338-46af-aa81-9887c91267eb",
-		AppSecret: "97c9ab81186dd17a1a8f09b22be4cbbc5a083c36",
-		Addr:      "211.88.18.140:2020",
+		AppKey:    "4028e5e5765587b801765593f8940003",
+		AppSecret: "94073bf0a7d94c4f15a58e7077edaa9d21eacd9c",
+		Addr:      "211.88.18.140:30080",
 	}
 	c, err := NewClient(opts)
 	if err != nil {
@@ -20,7 +20,7 @@ func TestCreateDocument(t *testing.T) {
 	}
 
 	// 读取测试文件
-	contentBase64, _, err := readTestFile("files/proof_cert.pdf")
+	contentBase64, _, err := readTestFile("files/demo.pdf")
 	if err != nil {
 		t.Fatalf("Read test file failed: %v", err)
 	}
@@ -29,22 +29,23 @@ func TestCreateDocument(t *testing.T) {
 		DocName:          "李四的劳动合同-电子数据存证证书",
 		DocType:          PDFDocType,
 		DocContentBase64: contentBase64,
-		UserID:           "4028e5e57562ccf00175b14a8f4e000d",
+		UserID:           "4028e5e5765f43630176655cf3c5003c",
 	}
 	err = c.CreateDocument(doc)
 	if err != nil {
 		t.Fatalf("CreateDocument failed: %v", err)
 	}
-	fmt.Println("DocID: ", doc.UUID)
+	fmt.Println("文档ID: ", doc.UUID)
 }
 
 func TestSignDocument(t *testing.T) {
+	t.SkipNow()
 
 	// 新建客户端
 	opts := &Options{
-		AppKey:    "76c14d72-4338-46af-aa81-9887c91267eb",
-		AppSecret: "97c9ab81186dd17a1a8f09b22be4cbbc5a083c36",
-		Addr:      "211.88.18.140:2020",
+		AppKey:    "4028e5e5765587b801765593f8940003",
+		AppSecret: "94073bf0a7d94c4f15a58e7077edaa9d21eacd9c",
+		Addr:      "211.88.18.140:30080",
 	}
 	c, err := NewClient(opts)
 	if err != nil {
@@ -52,17 +53,18 @@ func TestSignDocument(t *testing.T) {
 	}
 
 	si := &SignInfo{
-		DocID:      "4028e5e57562cd0f0175b623d6f50009",
-		Remark:     "李四的存证证书盖章",
-		SealID:     "4028e5e57562ccf00175b16e8db70011",
-		PageNumber: "1",
-		X:          50,
-		Y:          50,
-		Height:     50,
-		Width:      50,
+		DocID:   "4028e5e5765f4363017665834bec003f",
+		SealID:  "4028e5e5765f43630176656067f1003d",
+		Keyword: "本人声明",
+		Scope:   0,
+		Start:   0,
+		End:     0,
+		Zoom:    100,
 	}
-	err = c.SignDocument(si)
+	signedDocURL, err := c.SignDocument(si)
 	if err != nil {
 		t.Fatalf("SignDocument failed: %v", err)
 	}
+
+	fmt.Println("签名文档路径: ", signedDocURL)
 }
