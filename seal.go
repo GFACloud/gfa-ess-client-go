@@ -66,7 +66,7 @@ type PersonalSeal struct {
 
 // CreatePersonalSeal creates an ess seal.
 func (c *Client) CreatePersonalSeal(seal *PersonalSeal) (err error) {
-	url := fmt.Sprintf("http://%s/ess/api/seal/user/cert/apply", c.opts.Addr)
+	url := fmt.Sprintf("http://%s/ess/api/seal/user_name/cert/apply", c.opts.Addr)
 
 	params := map[string]string{
 		"name":   seal.Name,
