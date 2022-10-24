@@ -45,7 +45,7 @@ func (c *Client) CreateDocument(doc *Document) (err error) {
 		fileName = doc.DocName
 	}
 
-	fileContent, err := base64.URLEncoding.DecodeString(doc.DocContentBase64)
+	fileContent, err := base64.StdEncoding.DecodeString(doc.DocContentBase64)
 	if err != nil {
 		err = fmt.Errorf("文档内容格式无效: %v", err)
 		return
