@@ -4,11 +4,17 @@ import (
 	"testing"
 )
 
+const (
+	APP_KEY_TEST = "ff80808185a616240185aa352dc409a6"
+	APP_SECRET_TEST = "2d291657812b0c56a8a197c307f1dfa2116f501d"
+	ADDR_TEST = "localhost:8080"
+)
+
 func TestNewClient(t *testing.T) {
 	opts := &Options{
-		AppKey:    "4028e5e5765587b801765593f8940003",
-		AppSecret: "94073bf0a7d94c4f15a58e7077edaa9d21eacd9c",
-		Addr:      "211.88.18.140:30080",
+		AppKey:    APP_KEY_TEST,
+		AppSecret: APP_SECRET_TEST,
+		Addr:      ADDR_TEST,
 	}
 	c, err := NewClient(opts)
 	if err != nil {

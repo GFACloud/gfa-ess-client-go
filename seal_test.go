@@ -6,13 +6,11 @@ import (
 )
 
 func TestCreateSeal(t *testing.T) {
-	t.SkipNow()
-
 	// 新建客户端
 	opts := &Options{
-		AppKey:    "4028e5e5765587b801765593f8940003",
-		AppSecret: "94073bf0a7d94c4f15a58e7077edaa9d21eacd9c",
-		Addr:      "211.88.18.140:30080",
+		AppKey:    APP_KEY_TEST,
+		AppSecret: APP_SECRET_TEST,
+		Addr:      ADDR_TEST,
 	}
 	c, err := NewClient(opts)
 	if err != nil {
@@ -26,10 +24,12 @@ func TestCreateSeal(t *testing.T) {
 	}
 
 	seal := &Seal{
-		ImgData: contentBase64,
-		ImgType: fileType,
-		Name:    "安信签电子证据保全平台印章",
-		UserID:  "4028e5e57562ccf00175b14a8f4e000d",
+		ImgData:  contentBase64,
+		ImgType:  fileType,
+		Name:     "安信签电子证据保全平台印章",
+		UserID:   "53d8c95886b4d3270186b51292610003",
+		SealType: "1",
+		Validity: 365,
 	}
 	err = c.CreateSeal(seal)
 	if err != nil {
@@ -39,13 +39,11 @@ func TestCreateSeal(t *testing.T) {
 }
 
 func TestCreatePersonalSeal(t *testing.T) {
-	t.SkipNow()
-
 	// 新建客户端
 	opts := &Options{
-		AppKey:    "4028e5e5765587b801765593f8940003",
-		AppSecret: "94073bf0a7d94c4f15a58e7077edaa9d21eacd9c",
-		Addr:      "211.88.18.140:30080",
+		AppKey:    APP_KEY_TEST,
+		AppSecret: APP_SECRET_TEST,
+		Addr:      ADDR_TEST,
 	}
 	c, err := NewClient(opts)
 	if err != nil {
@@ -54,7 +52,7 @@ func TestCreatePersonalSeal(t *testing.T) {
 
 	seal := &PersonalSeal{
 		Name:   "张三的人名章",
-		CertSN: "1765f4525a5",
+		CertSN: "0186b4d326dd",
 	}
 	err = c.CreatePersonalSeal(seal)
 	if err != nil {

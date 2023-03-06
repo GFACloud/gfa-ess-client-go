@@ -6,16 +6,18 @@ import (
 
 // Seal represents an ess seal.
 type Seal struct {
-	ImgData string `json:"imgData"`
-	ImgType string `json:"imgType"`
-	Name    string `json:"name"`
-	UserID  string `json:"userId"`
-	UUID    string `json:"uuid"`
+	ImgData  string `json:"imgData"`
+	ImgType  string `json:"imgType"`
+	Name     string `json:"name"`
+	UserID   string `json:"userId"`
+	SealType string `json:"sealType"`
+	UUID     string `json:"uuid"`
+	Validity int    `json:"validity"`
 }
 
 // CreateSeal creates an ess seal.
 func (c *Client) CreateSeal(seal *Seal) (err error) {
-	url := fmt.Sprintf("http://%s/api/seal/quick/create", c.opts.Addr)
+	url := fmt.Sprintf("http://%s/api/seal/event/cert/apply", c.opts.Addr)
 
 	params := map[string]string{
 		"imgData": seal.ImgData,

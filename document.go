@@ -25,7 +25,7 @@ type Document struct {
 }
 
 // CreateDocument creates an ess document.
-func (c *Client) CreateDocument(doc *Document) (err error) {
+func (c *Client) CreateDocument(doc *Document) (docURL string, err error) {
 	url := fmt.Sprintf("http://%s/ess/api/user/doc/create", c.opts.Addr)
 
 	formData := map[string]string{
@@ -63,24 +63,38 @@ func (c *Client) CreateDocument(doc *Document) (err error) {
 		return
 	}
 
+	// Parse doc id param
 	tv, found := v["id"]
 	if !found {
 		err = fmt.Errorf("response data invalid: %v", v)
 		return
 	}
-
 	docID, ok := tv.(string)
 	if !ok {
 		err = fmt.Errorf("response data invalid: %v", tv)
 		return
 	}
-
 	if docID == "" {
 		err = fmt.Errorf("response data invalid: id is empty")
 		return
 	}
-
 	doc.UUID = docID
+
+	// Parse doc url param
+	tv, found = v["url"]
+	if !found {
+		err = fmt.Errorf("response data invalid: %v", v)
+		return
+	}
+	docURL, ok = tv.(string)
+	if !ok {
+		err = fmt.Errorf("response data invalid: %v", tv)
+		return
+	}
+	if docURL == "" {
+		err = fmt.Errorf("response data invalid: url is empty")
+		return
+	}
 
 	return
 }

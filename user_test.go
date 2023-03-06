@@ -23,13 +23,11 @@ func randString(len int) string {
 }
 
 func TestCreateUser(t *testing.T) {
-	t.SkipNow()
-
 	// 新建客户端
 	opts := &Options{
-		AppKey:    "4028e5e5765587b801765593f8940003",
-		AppSecret: "94073bf0a7d94c4f15a58e7077edaa9d21eacd9c",
-		Addr:      "211.88.18.140:30080",
+		AppKey:    APP_KEY_TEST,
+		AppSecret: APP_SECRET_TEST,
+		Addr:      ADDR_TEST,
 	}
 	c, err := NewClient(opts)
 	if err != nil {
@@ -53,20 +51,18 @@ func TestCreateUser(t *testing.T) {
 }
 
 func TestCreateUserCert(t *testing.T) {
-	t.SkipNow()
-
 	// 新建客户端
 	opts := &Options{
-		AppKey:    "4028e5e5765587b801765593f8940003",
-		AppSecret: "94073bf0a7d94c4f15a58e7077edaa9d21eacd9c",
-		Addr:      "211.88.18.140:30080",
+		AppKey:    APP_KEY_TEST,
+		AppSecret: APP_SECRET_TEST,
+		Addr:      ADDR_TEST,
 	}
 	c, err := NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	userID := "4028e5e5765f43630176655cf3c5003c"
+	userID := "53d8c95886b4d3270186b51292610003"
 	certSN, err := c.CreateUserCert(userID)
 	if err != nil {
 		t.Fatalf("CreateUserCert failed: %v", err)
