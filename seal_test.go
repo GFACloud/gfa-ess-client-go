@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestCreateSeal(t *testing.T) {
+func TestCreateEventCertSeal(t *testing.T) {
 	// 新建客户端
 	opts := &Options{
 		AppKey:    APP_KEY_TEST,
@@ -18,7 +18,7 @@ func TestCreateSeal(t *testing.T) {
 	}
 
 	// 读取印章文件
-	contentBase64, fileType, err := readTestFile("files/seal.png")
+	contentBase64, fileType, err := readTestFile("files/org.png")
 	if err != nil {
 		t.Fatalf("Read test file failed: %v", err)
 	}
@@ -33,12 +33,12 @@ func TestCreateSeal(t *testing.T) {
 	}
 	err = c.CreateEventCertSeal(seal)
 	if err != nil {
-		t.Fatalf("CreateSeal failed: %v", err)
+		t.Fatalf("TestCreateEventCertSeal failed: %v", err)
 	}
 	fmt.Println("SealID: ", seal.UUID)
 }
 
-func TestCreatePersonalSeal(t *testing.T) {
+func TestCreateUserNameSeal(t *testing.T) {
 	// 新建客户端
 	opts := &Options{
 		AppKey:    APP_KEY_TEST,
@@ -50,13 +50,43 @@ func TestCreatePersonalSeal(t *testing.T) {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	seal := &PersonalSeal{
+	seal := &UserNameSeal{
 		Name:   "张三的人名章",
 		CertSN: "0186b4d326dd",
 	}
-	err = c.CreatePersonalSeal(seal)
+	err = c.CreateUserNameSeal(seal)
 	if err != nil {
-		t.Fatalf("CreatePersonalSeal failed: %v", err)
+		t.Fatalf("TestCreateUserNameSeal failed: %v", err)
 	}
-	fmt.Println("人名章ID: ", seal.UUID)
+	fmt.Println("SealID: ", seal.UUID)
+}
+
+func TestCreateUserImageSeal(t *testing.T) {
+	// 新建客户端
+	opts := &Options{
+		AppKey:    APP_KEY_TEST,
+		AppSecret: APP_SECRET_TEST,
+		Addr:      ADDR_TEST,
+	}
+	c, err := NewClient(opts)
+	if err != nil {
+		t.Fatalf("NewClient failed: %v", err)
+	}
+
+	// 读取印章文件
+	imgBase64, _, err := readTestFile("files/person.png")
+	if err != nil {
+		t.Fatalf("Read test file failed: %v", err)
+	}
+
+	seal := &UserImageSeal{
+		Name:   "张三的图片章",
+		CertSN: "0186b4c2388b",
+		Image:  imgBase64,
+	}
+	err = c.CreateUserImageSeal(seal)
+	if err != nil {
+		t.Fatalf("CreateUserImageSeal failed: %v", err)
+	}
+	fmt.Println("SealID: ", seal.UUID)
 }
