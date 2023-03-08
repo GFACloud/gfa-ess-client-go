@@ -4,8 +4,8 @@ import (
 	"fmt"
 )
 
-// Seal represents an ess seal.
-type Seal struct {
+// EventCertSeal represents an ess seal.
+type EventCertSeal struct {
 	ImgData  string `json:"imgData"`
 	ImgType  string `json:"imgType"`
 	Name     string `json:"name"`
@@ -15,16 +15,18 @@ type Seal struct {
 	Validity int    `json:"validity"`
 }
 
-// CreateSeal creates an ess seal.
-func (c *Client) CreateSeal(seal *Seal) (err error) {
-	url := fmt.Sprintf("http://%s/api/seal/event/cert/apply", c.opts.Addr)
+// CreateEventCertSeal creates an ess seal.
+func (c *Client) CreateEventCertSeal(seal *EventCertSeal) (err error) {
+	url := fmt.Sprintf("http://%s/ess/api/seal/event/cert/apply", c.opts.Addr)
 
 	params := map[string]string{
-		"imgData": seal.ImgData,
-		"imgType": seal.ImgType,
-		"name":    seal.Name,
-		"userId":  seal.UserID,
-		"uuid":    seal.UUID,
+		"imgData":  seal.ImgData,
+		"imgType":  seal.ImgType,
+		"name":     seal.Name,
+		"userId":   seal.UserID,
+		"sealType": seal.SealType,
+		"uuid":     seal.UUID,
+		"validity": fmt.Sprintf("%v", seal.Validity),
 	}
 	data, err := c.postParams(url, params)
 	if err != nil {

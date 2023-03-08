@@ -23,15 +23,15 @@ func TestCreateSeal(t *testing.T) {
 		t.Fatalf("Read test file failed: %v", err)
 	}
 
-	seal := &Seal{
+	seal := &EventCertSeal{
 		ImgData:  contentBase64,
 		ImgType:  fileType,
 		Name:     "安信签电子证据保全平台印章",
-		UserID:   "53d8c95886b4d3270186b51292610003",
+		UserID:   "ff80808185ba37e70185bdc8bd160a1d",
 		SealType: "1",
 		Validity: 365,
 	}
-	err = c.CreateSeal(seal)
+	err = c.CreateEventCertSeal(seal)
 	if err != nil {
 		t.Fatalf("CreateSeal failed: %v", err)
 	}

@@ -79,7 +79,7 @@ func TestSignDocumentForPosition(t *testing.T) {
 	}
 
 	si := &PositionSignInfo{
-		DocID:      "53d8c95886b584690186b598a14c0004",
+		DocID:      "53d8c95886b5f3160186b5fca2de0002",
 		SealID:     "ff80808185beb7db0185bebbac9a0006",
 		PageNumber: "1",
 		X:          330,
