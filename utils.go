@@ -89,18 +89,34 @@ func (c *Client) postFileForm(url string, formData map[string]string, fileParam 
 	return result.Data, nil
 }
 
-func readTestFile(filename string) (contentBase64 string, fileType string, err error) {
+func readFile(filename string) (content []byte, fileType string, err error) {
+	// Read file content
+	content, err = ioutil.ReadFile(filename)
+	if err != nil {
+		return
+	}
+
+	// Parse file type
+	items := strings.Split(filename, ".")
+	if len(items) >= 2 {
+		fileType = items[len(items)-1]
+	}
+
+	return
+}
+
+func readFileBase64(filename string) (contentBase64 string, fileType string, err error) {
+	// Read file content, and encode it with Base64
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return
 	}
 	contentBase64 = base64.StdEncoding.EncodeToString(content)
 
+	// Parse file type
 	items := strings.Split(filename, ".")
 	if len(items) >= 2 {
 		fileType = items[len(items)-1]
-	} else {
-		fileType = "png"
 	}
 
 	return

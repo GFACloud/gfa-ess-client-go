@@ -18,7 +18,7 @@ func TestCreateEventCertSeal(t *testing.T) {
 	}
 
 	// 读取印章文件
-	contentBase64, fileType, err := readTestFile("files/org.png")
+	contentBase64, fileType, err := readFileBase64("files/org.png")
 	if err != nil {
 		t.Fatalf("Read test file failed: %v", err)
 	}
@@ -74,7 +74,7 @@ func TestCreateUserImageSeal(t *testing.T) {
 	}
 
 	// 读取印章文件
-	imgBase64, _, err := readTestFile("files/person.png")
+	imgBase64, _, err := readFileBase64("files/person.png")
 	if err != nil {
 		t.Fatalf("Read test file failed: %v", err)
 	}

@@ -18,7 +18,7 @@ func TestCreateDocument(t *testing.T) {
 	}
 
 	// 读取测试文件
-	contentBase64, _, err := readTestFile("files/proof_cert.pdf")
+	contentBase64, _, err := readFileBase64("files/proof_cert.pdf")
 	if err != nil {
 		t.Fatalf("Read test file failed: %v", err)
 	}

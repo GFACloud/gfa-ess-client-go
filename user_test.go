@@ -49,23 +49,3 @@ func TestCreateUser(t *testing.T) {
 	}
 	fmt.Println("用户ID: ", user.UUID)
 }
-
-func TestCreateUserCert(t *testing.T) {
-	// 新建客户端
-	opts := &Options{
-		AppKey:    APP_KEY_TEST,
-		AppSecret: APP_SECRET_TEST,
-		Addr:      ADDR_TEST,
-	}
-	c, err := NewClient(opts)
-	if err != nil {
-		t.Fatalf("NewClient failed: %v", err)
-	}
-
-	userID := "53d8c95886b4d3270186b51292610003"
-	certSN, err := c.CreateUserCert(userID)
-	if err != nil {
-		t.Fatalf("CreateUserCert failed: %v", err)
-	}
-	fmt.Println("证书序列号: ", certSN)
-}

@@ -58,24 +58,3 @@ func (c *Client) CreateUser(user *User) (err error) {
 
 	return
 }
-
-// CreateUserCert creates the certification for an ess user.
-func (c *Client) CreateUserCert(userID string) (certSN string, err error) {
-	url := fmt.Sprintf("http://%s/ess/api/user/cert/apply", c.opts.Addr)
-
-	params := map[string]string{
-		"userId": userID,
-	}
-	data, err := c.postParams(url, params)
-	if err != nil {
-		return
-	}
-
-	certSN, ok := data.(string)
-	if !ok {
-		err = fmt.Errorf("response data invalid: %v", data)
-		return
-	}
-
-	return
-}
