@@ -92,3 +92,33 @@ func TestSignDocByPercent(t *testing.T) {
 
 	fmt.Println("签名文档路径: ", signedDocURL)
 }
+
+func TestSignDocByCrossPage(t *testing.T) {
+	// 新建客户端
+	opts := &Options{
+		AppKey:    APP_KEY_TEST,
+		AppSecret: APP_SECRET_TEST,
+		Addr:      ADDR_TEST,
+	}
+	c, err := NewClient(opts)
+	if err != nil {
+		t.Fatalf("NewClient failed: %v", err)
+	}
+
+	si := &CrossPageSignInfo{
+		DocID:     "53d8992f86fdb6ac0186fdbd18150001",
+		SealID:    "11d3c4efee39360a0001",
+		BeginPage: 3,
+		EndPage:   13,
+		PosType:   1,
+		Position:  24999,
+		Zoom:      100,
+		Remark:    "租房合同盖章",
+	}
+	signedDocURL, err := c.SignDocByCrossPage(si)
+	if err != nil {
+		t.Fatalf("SignDocByCrossPage failed: %v", err)
+	}
+
+	fmt.Println("签名文档路径: ", signedDocURL)
+}

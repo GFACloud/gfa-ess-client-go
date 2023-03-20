@@ -217,3 +217,80 @@ func (c *Client) SignDocByPercent(si *PercentSignInfo) (signedDocURL string, err
 
 	return
 }
+
+// CrossPageSignInfo represents the cross-page signing info to an ess document.
+type CrossPageSignInfo struct {
+	// 待签文档ID
+	DocID string `json:"docId"`
+	// 签署印章ID
+	SealID string `json:"sealId"`
+	// 起始页：从1开始，1表示第一页
+	BeginPage int `json:"beginPage"`
+	// 结束页：从0开始，0表示最末页
+	EndPage int `json:"endPage"`
+	// 位置标识，1：'左侧齐缝章'，2：'右侧齐缝章'
+	PosType int `json:"posType"`
+	// 盖章纵向位置：0-49999，按比列确定位置，24999表示正中央
+	Position int `json:"position"`
+	// 印章缩放比例,取值范围百分比：10-100,示例值(100)
+	Zoom int `json:"zoom"`
+	// 签署原因,示例值(人事合同员工签名)
+	Remark string `json:"remark"`
+}
+
+// SignDocByCrossPage signs the document by the cross-page seal.
+func (c *Client) SignDocByCrossPage(si *CrossPageSignInfo) (signedDocURL string, err error) {
+	url := fmt.Sprintf("http://%s/ess/api/user/doc/sign/across/page", c.opts.Addr)
+
+	params := map[string]string{
+		"docId":     si.DocID,
+		"sealId":    si.SealID,
+		"beginPage": fmt.Sprintf("%v", si.BeginPage),
+		"endPage":   fmt.Sprintf("%v", si.EndPage),
+		"posType":   fmt.Sprintf("%v", si.PosType),
+		"position":  fmt.Sprintf("%v", si.Position),
+		"zoom":      fmt.Sprintf("%v", si.Zoom),
+		"remark":    si.Remark,
+	}
+	data, err := c.postParams(url, params)
+	if err != nil {
+		return
+	}
+
+	v, ok := data.(map[string]interface{})
+	if !ok {
+		err = fmt.Errorf("response data invalid: %v", data)
+		return
+	}
+
+	tv, found := v["id"]
+	if !found {
+		err = fmt.Errorf("response data invalid: %v", v)
+		return
+	}
+
+	docID, ok := tv.(string)
+	if !ok {
+		err = fmt.Errorf("response data invalid: %v", tv)
+		return
+	}
+
+	if docID != si.DocID {
+		err = fmt.Errorf("response data invalid: id is unmatched")
+		return
+	}
+
+	tv, found = v["url"]
+	if !found {
+		err = fmt.Errorf("response data invalid: %v", v)
+		return
+	}
+
+	signedDocURL, ok = tv.(string)
+	if !ok {
+		err = fmt.Errorf("response data invalid: %v", tv)
+		return
+	}
+
+	return
+}
