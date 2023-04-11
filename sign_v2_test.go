@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestSignDocByPercentV2(t *testing.T) {
+func TestSignDocByPositionV2(t *testing.T) {
 	// 新建客户端
 	opts := &Options{
 		AppKey:    APP_KEY_TEST,
@@ -17,10 +17,10 @@ func TestSignDocByPercentV2(t *testing.T) {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &PercentSignModels{
+	si := &PositionSignModels{
 		DocID:  "53d8992f8736c311018736d90ee00003",
 		Remark: "OFD文档位置盖章测试",
-		Signs: []*PercentSignModel{
+		Signs: []*PositionSignModel{
 			{
 				SealID: "ff80808185beb7db0185bebbac9a0006",
 				Page:   1,
@@ -32,7 +32,7 @@ func TestSignDocByPercentV2(t *testing.T) {
 		},
 	}
 
-	signedDocURL, err := c.SignDocByPercentV2(si)
+	signedDocURL, err := c.SignDocByPositionV2(si)
 	if err != nil {
 		t.Fatalf("SignDocByPercentV2 failed: %v", err)
 	}

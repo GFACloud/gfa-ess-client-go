@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type PercentSignModel struct {
+type PositionSignModel struct {
 	// 印章ID
 	SealID string `json:"sealId"`
 	// 页码范围,设置签章所在页码,默认“0”，0：第一页，-1：倒数最后一页
@@ -19,8 +19,8 @@ type PercentSignModel struct {
 	Reason string `json:"reason"`
 }
 
-// PercentSignModels represents the percent signing info to an ess document.
-type PercentSignModels struct {
+// PositionSignModels represents the position signing info to an ess document.
+type PositionSignModels struct {
 	// 文档ID
 	DocID string `json:"docId"`
 
@@ -28,12 +28,12 @@ type PercentSignModels struct {
 	Remark string `json:"remark"`
 
 	// 签署信息
-	Signs []*PercentSignModel `json:"signs"`
+	Signs []*PositionSignModel `json:"signs"`
 }
 
-// SignDocByPercentV2 signs an ess document by specified percent.
-func (c *Client) SignDocByPercentV2(si *PercentSignModels) (signedDocURL string, err error) {
-	url := fmt.Sprintf("http://%s/ess/api/v2/user/doc/sign/percent", c.opts.Addr)
+// SignDocByPositionV2 signs an ess document by specified position.
+func (c *Client) SignDocByPositionV2(si *PositionSignModels) (signedDocURL string, err error) {
+	url := fmt.Sprintf("http://%s/ess/api/v2/user/doc/sign/position", c.opts.Addr)
 
 	data, err := c.postObject(url, si)
 	if err != nil {
