@@ -34,7 +34,7 @@ func TestSignDocByPositionV2(t *testing.T) {
 
 	signedDocURL, err := c.SignDocByPositionV2(si)
 	if err != nil {
-		t.Fatalf("SignDocByPercentV2 failed: %v", err)
+		t.Fatalf("SignDocByPositionV2 failed: %v", err)
 	}
 
 	fmt.Println("签名文档路径: ", signedDocURL)
@@ -79,6 +79,43 @@ func TestSignDocByKeywordV2(t *testing.T) {
 	signedDocURL, err := c.SignDocByKeywordV2(si)
 	if err != nil {
 		t.Fatalf("SignDocByKeywordV2 failed: %v", err)
+	}
+
+	fmt.Println("签名文档路径: ", signedDocURL)
+}
+
+func TestSignDocByCrossPageV2(t *testing.T) {
+	// 新建客户端
+	opts := &Options{
+		AppKey:    APP_KEY_TEST,
+		AppSecret: APP_SECRET_TEST,
+		Addr:      ADDR_TEST,
+	}
+	c, err := NewClient(opts)
+	if err != nil {
+		t.Fatalf("NewClient failed: %v", err)
+	}
+
+	si := &CrossPageSignModels{
+		DocID:  "53d8992f87741e53018774339baa000c",
+		Remark: "文档骑缝盖章测试",
+		Signs: []*CrossPageSignModel{
+			{
+				// SealID: "db4bea6873582a6d0004",
+				SealID: "db4bea687357a1b60003",
+				Align:  1,
+				Scope:  1,
+				Start:  2,
+				End:    10,
+				Offset: 0.2,
+				Zoom:   0.5,
+			},
+		},
+	}
+
+	signedDocURL, err := c.SignDocByCrossPageV2(si)
+	if err != nil {
+		t.Fatalf("SignDocByCrossPageV2 failed: %v", err)
 	}
 
 	fmt.Println("签名文档路径: ", signedDocURL)
