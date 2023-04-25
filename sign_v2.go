@@ -257,13 +257,81 @@ type AnnotationSignModels struct {
 	// 备注
 	Remark string `json:"remark"`
 
-	// 位置盖章属性
+	// 注释盖章属性
 	Annotations []*AnnotationSignModel `json:"annotations"`
 }
 
 // SignDocByAnnotationV2 signs the document by the specified annotation signing info.
 func (c *Client) SignDocByAnnotationV2(si *AnnotationSignModels) (signedDocURL string, err error) {
 	url := fmt.Sprintf("http://%s/ess/api/v2/user/doc/sign/annotation", c.opts.Addr)
+
+	data, err := c.postObject(url, si)
+	if err != nil {
+		return
+	}
+
+	v, ok := data.(map[string]interface{})
+	if !ok {
+		err = fmt.Errorf("response data invalid: %v", data)
+		return
+	}
+
+	tv, found := v["id"]
+	if !found {
+		err = fmt.Errorf("response data invalid: %v", v)
+		return
+	}
+
+	docID, ok := tv.(string)
+	if !ok {
+		err = fmt.Errorf("response data invalid: %v", tv)
+		return
+	}
+
+	if docID != si.DocID {
+		err = fmt.Errorf("response data invalid: id is unmatched")
+		return
+	}
+
+	tv, found = v["url"]
+	if !found {
+		err = fmt.Errorf("response data invalid: %v", v)
+		return
+	}
+
+	signedDocURL, ok = tv.(string)
+	if !ok {
+		err = fmt.Errorf("response data invalid: %v", tv)
+		return
+	}
+
+	return
+}
+
+// SignModels represents the one-stop signing info.
+type SignModels struct {
+	// 文档ID
+	DocID string `json:"docId"`
+
+	// 备注
+	Remark string `json:"remark"`
+
+	// 位置盖章属性
+	Positions []*PositionSignModel `json:"positions"`
+
+	// 关键字盖章属性
+	Keywords []*KeywordSignModel `json:"keywords"`
+
+	// 骑缝盖章属性
+	CrossPages []*CrossPageSignModel `json:"crosspages"`
+
+	// 注释盖章属性
+	Annotations []*AnnotationSignModel `json:"annotations"`
+}
+
+// SignDoc signs the document by the one-stop signing info.
+func (c *Client) SignDoc(si *SignModels) (signedDocURL string, err error) {
+	url := fmt.Sprintf("http://%s/ess/api/v2/user/doc/sign", c.opts.Addr)
 
 	data, err := c.postObject(url, si)
 	if err != nil {

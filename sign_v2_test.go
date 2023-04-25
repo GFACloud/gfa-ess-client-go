@@ -54,7 +54,7 @@ func TestSignDocByKeywordV2(t *testing.T) {
 
 	si := &KeywordSignModels{
 		DocID:  "53d8992f874b903f01874b9e8b470001",
-		Remark: "OFD文档关键字盖章测试",
+		Remark: "文档关键字盖章测试",
 		Keywords: []*KeywordSignModel{
 			{
 				SealID:  "db09f65231610d7a0002",
@@ -152,6 +152,81 @@ func TestSignDocByAnnotationV2(t *testing.T) {
 	signedDocURL, err := c.SignDocByAnnotationV2(si)
 	if err != nil {
 		t.Fatalf("SignDocByAnnotationV2 failed: %v", err)
+	}
+
+	fmt.Println("签名文档路径: ", signedDocURL)
+}
+
+func TestSignDoc(t *testing.T) {
+	// 新建客户端
+	opts := &Options{
+		AppKey:    APP_KEY_TEST,
+		AppSecret: APP_SECRET_TEST,
+		Addr:      ADDR_TEST,
+	}
+	c, err := NewClient(opts)
+	if err != nil {
+		t.Fatalf("NewClient failed: %v", err)
+	}
+
+	si := &SignModels{
+		DocID:  "8ae58ded87e59b4d0187e5a036130003",
+		Remark: "文档一站式盖章测试",
+		Positions: []*PositionSignModel{
+			{
+				SealID: "12a775fec6767a040008",
+				Page:   1,
+				X:      0.5,
+				Y:      0.6,
+				Zoom:   0.8,
+			},
+		},
+		Keywords: []*KeywordSignModel{
+			{
+				SealID:  "12a775fec20227070003",
+				Keyword: "长恨歌",
+				Zoom:    0.8,
+				OffsetX: 10,
+			},
+			{
+				SealID:  "12a775fec20227070003",
+				Keyword: "长歌行",
+				Zoom:    0.5,
+				OffsetY: 5,
+			},
+			{
+				SealID:  "12a775fec20227070003",
+				Keyword: "警世贤文",
+				Zoom:    0.3,
+			},
+		},
+		CrossPages: []*CrossPageSignModel{
+			{
+				// SealID: "db4bea6873582a6d0004",
+				SealID: "12a775fec6767a040008",
+				Align:  2,
+				Scope:  1,
+				Start:  2,
+				End:    10,
+				Offset: 0.2,
+				Zoom:   0.5,
+			},
+		},
+		Annotations: []*AnnotationSignModel{
+			{
+				SealID: "db4bea6873582a6d0004",
+				Page:   2,
+				X:      0.5,
+				Y:      0.6,
+				Zoom:   0.8,
+				Hidden: false,
+			},
+		},
+	}
+
+	signedDocURL, err := c.SignDoc(si)
+	if err != nil {
+		t.Fatalf("SignDoc failed: %v", err)
 	}
 
 	fmt.Println("签名文档路径: ", signedDocURL)
