@@ -1,23 +1,25 @@
-package esssdk
+package client_test
 
 import (
 	"fmt"
 	"testing"
+
+	ec "github.com/gfacloud/gfa-ess-client-go"
 )
 
 func TestSignDocByKeyword(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &KeywordSignInfo{
+	si := &ec.KeywordSignInfo{
 		DocID:   "4028e5e5768840ab0176888a63fa0009",
 		SealID:  "2c92e6a677389f95017738a3ab7c0006",
 		Keyword: "本人声明",
@@ -36,17 +38,17 @@ func TestSignDocByKeyword(t *testing.T) {
 
 func TestSignDocByPosition(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &PositionSignInfo{
+	si := &ec.PositionSignInfo{
 		DocID:      "53d8c95886b584690186b59770240003",
 		SealID:     "da97e6bbbf2884870001",
 		PageNumber: "1",
@@ -65,17 +67,17 @@ func TestSignDocByPosition(t *testing.T) {
 
 func TestSignDocByPercent(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &PercentSignInfo{
+	si := &ec.PercentSignInfo{
 		DocID:      "53d8c95886b584690186b59770240003",
 		SealID:     "da97e6bbbf2884870001",
 		PageNumber: "1",
@@ -95,17 +97,17 @@ func TestSignDocByPercent(t *testing.T) {
 
 func TestSignDocByCrossPage(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &CrossPageSignInfo{
+	si := &ec.CrossPageSignInfo{
 		DocID:     "53d8992f86fdb6ac0186fdbd18150001",
 		SealID:    "11d3c4efee39360a0001",
 		BeginPage: 3,

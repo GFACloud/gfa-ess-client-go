@@ -1,4 +1,4 @@
-module github.com/gfacloud/gfa-ess-sdk-go
+module github.com/gfacloud/gfa-ess-client-go
 
 go 1.14
 

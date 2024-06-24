@@ -1,26 +1,28 @@
-package esssdk
+package client_test
 
 import (
 	"fmt"
 	"testing"
+
+	ec "github.com/gfacloud/gfa-ess-client-go"
 )
 
 func TestSignDocByPositionV2(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &PositionSignModels{
+	si := &ec.PositionSignModels{
 		DocID:  "53d8992f87ad00d80187ad02d64f0002",
 		Remark: "文档位置盖章测试",
-		Positions: []*PositionSignModel{
+		Positions: []*ec.PositionSignModel{
 			{
 				SealID: "db4bea687357a1b60003",
 				Page:   1,
@@ -42,20 +44,20 @@ func TestSignDocByPositionV2(t *testing.T) {
 
 func TestSignDocByKeywordV2(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &KeywordSignModels{
+	si := &ec.KeywordSignModels{
 		DocID:  "53d8992f874b903f01874b9e8b470001",
 		Remark: "文档关键字盖章测试",
-		Keywords: []*KeywordSignModel{
+		Keywords: []*ec.KeywordSignModel{
 			{
 				SealID:  "db09f65231610d7a0002",
 				Keyword: "长恨歌",
@@ -86,20 +88,20 @@ func TestSignDocByKeywordV2(t *testing.T) {
 
 func TestSignDocByCrossPageV2(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &CrossPageSignModels{
+	si := &ec.CrossPageSignModels{
 		DocID:  "53d8992f877981db01877984638d0002",
 		Remark: "文档骑缝盖章测试",
-		CrossPages: []*CrossPageSignModel{
+		CrossPages: []*ec.CrossPageSignModel{
 			{
 				// SealID: "db4bea6873582a6d0004",
 				SealID: "db4bea687357a1b60003",
@@ -123,20 +125,20 @@ func TestSignDocByCrossPageV2(t *testing.T) {
 
 func TestSignDocByAnnotationV2(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &AnnotationSignModels{
+	si := &ec.AnnotationSignModels{
 		DocID:  "53d8992f87ad00d80187ad02d64f0002",
 		Remark: "文档注释盖章测试",
-		Annotations: []*AnnotationSignModel{
+		Annotations: []*ec.AnnotationSignModel{
 			{
 				SealID: "db4bea6873582a6d0004",
 				Page:   1,
@@ -159,20 +161,20 @@ func TestSignDocByAnnotationV2(t *testing.T) {
 
 func TestSignDoc(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &SignModels{
+	si := &ec.SignModels{
 		DocID:  "8ae58ded87e59b4d0187e5a036130003",
 		Remark: "文档一站式盖章测试",
-		Positions: []*PositionSignModel{
+		Positions: []*ec.PositionSignModel{
 			{
 				SealID: "12a775fec6767a040008",
 				Page:   1,
@@ -181,7 +183,7 @@ func TestSignDoc(t *testing.T) {
 				Zoom:   0.8,
 			},
 		},
-		Keywords: []*KeywordSignModel{
+		Keywords: []*ec.KeywordSignModel{
 			{
 				SealID:  "12a775fec20227070003",
 				Keyword: "长恨歌",
@@ -200,7 +202,7 @@ func TestSignDoc(t *testing.T) {
 				Zoom:    0.3,
 			},
 		},
-		CrossPages: []*CrossPageSignModel{
+		CrossPages: []*ec.CrossPageSignModel{
 			{
 				// SealID: "db4bea6873582a6d0004",
 				SealID: "12a775fec6767a040008",
@@ -212,7 +214,7 @@ func TestSignDoc(t *testing.T) {
 				Zoom:   0.5,
 			},
 		},
-		Annotations: []*AnnotationSignModel{
+		Annotations: []*ec.AnnotationSignModel{
 			{
 				SealID: "db4bea6873582a6d0004",
 				Page:   2,

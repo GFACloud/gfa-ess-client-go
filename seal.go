@@ -1,4 +1,4 @@
-package esssdk
+package client
 
 import (
 	"fmt"

@@ -1,18 +1,20 @@
-package esssdk
+package client_test
 
 import (
 	"fmt"
 	"testing"
+
+	ec "github.com/gfacloud/gfa-ess-client-go"
 )
 
 func TestCreateUserCert(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
@@ -27,12 +29,12 @@ func TestCreateUserCert(t *testing.T) {
 
 func TestImportUserCert(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}

@@ -1,10 +1,12 @@
-package esssdk
+package client_test
 
 import (
 	"fmt"
 	"math/rand"
 	"testing"
 	"time"
+
+	ec "github.com/gfacloud/gfa-ess-client-go"
 )
 
 var r *rand.Rand
@@ -24,12 +26,12 @@ func randString(len int) string {
 
 func TestCreateUser(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
@@ -37,7 +39,7 @@ func TestCreateUser(t *testing.T) {
 	userName := randString(10)
 	email := fmt.Sprintf("%s@ec.com.cn", userName)
 
-	user := &User{
+	user := &ec.User{
 		Email:    email,
 		Mobile:   "12345678901",
 		UserName: userName,

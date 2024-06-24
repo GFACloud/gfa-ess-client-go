@@ -1,18 +1,20 @@
-package esssdk
+package client_test
 
 import (
 	"fmt"
 	"testing"
+
+	ec "github.com/gfacloud/gfa-ess-client-go"
 )
 
 func TestCreateEventCertSeal(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
@@ -23,7 +25,7 @@ func TestCreateEventCertSeal(t *testing.T) {
 		t.Fatalf("Read test file failed: %v", err)
 	}
 
-	seal := &EventCertSeal{
+	seal := &ec.EventCertSeal{
 		ImgData:  contentBase64,
 		ImgType:  fileType,
 		Name:     "安信签电子证据保全平台印章",
@@ -40,17 +42,17 @@ func TestCreateEventCertSeal(t *testing.T) {
 
 func TestCreateUserNameSeal(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	seal := &UserNameSeal{
+	seal := &ec.UserNameSeal{
 		Name:   "张三的人名章",
 		CertSN: "0186b4d326dd",
 	}
@@ -63,12 +65,12 @@ func TestCreateUserNameSeal(t *testing.T) {
 
 func TestCreateUserImageSeal(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
@@ -79,7 +81,7 @@ func TestCreateUserImageSeal(t *testing.T) {
 		t.Fatalf("Read test file failed: %v", err)
 	}
 
-	seal := &UserImageSeal{
+	seal := &ec.UserImageSeal{
 		Name:   "张三的图片章",
 		CertSN: "0186b4c2388b",
 		Image:  imgBase64,

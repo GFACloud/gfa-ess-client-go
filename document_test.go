@@ -1,18 +1,20 @@
-package esssdk
+package client_test
 
 import (
 	"fmt"
 	"testing"
+
+	ec "github.com/gfacloud/gfa-ess-client-go"
 )
 
 func TestCreateDocPdf(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
@@ -23,9 +25,9 @@ func TestCreateDocPdf(t *testing.T) {
 		t.Fatalf("Read test file failed: %v", err)
 	}
 
-	doc := &Doc{
+	doc := &ec.Doc{
 		DocName:          "PDF文档测试",
-		DocType:          PDFDocType,
+		DocType:          ec.PDFDocType,
 		DocContentBase64: contentBase64,
 		UserID:           "ff80808185ba37e70185bdc8bd160a1d",
 	}
@@ -39,12 +41,12 @@ func TestCreateDocPdf(t *testing.T) {
 
 func TestCreateDocOfd(t *testing.T) {
 	// 新建客户端
-	opts := &Options{
+	opts := &ec.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := NewClient(opts)
+	c, err := ec.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
@@ -55,9 +57,9 @@ func TestCreateDocOfd(t *testing.T) {
 		t.Fatalf("Read test file failed: %v", err)
 	}
 
-	doc := &Doc{
+	doc := &ec.Doc{
 		DocName:          "OFD文档测试",
-		DocType:          OFDDocType,
+		DocType:          ec.OFDDocType,
 		DocContentBase64: contentBase64,
 		UserID:           "ff80808185ba37e70185bdc8bd160a1d",
 	}
