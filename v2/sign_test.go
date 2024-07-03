@@ -4,25 +4,25 @@ import (
 	"fmt"
 	"testing"
 
-	ec "github.com/gfacloud/gfa-ess-client-go"
+	ecv2 "github.com/gfacloud/gfa-ess-client-go/v2"
 )
 
-func TestSignDocByPositionV2(t *testing.T) {
+func TestSignDocByPosition(t *testing.T) {
 	// 新建客户端
-	opts := &ec.Options{
+	opts := &ecv2.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := ec.NewClient(opts)
+	c, err := ecv2.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &ec.PositionSignModels{
+	si := &ecv2.PositionSignModels{
 		DocID:  "53d8992f87ad00d80187ad02d64f0002",
 		Remark: "文档位置盖章测试",
-		Positions: []*ec.PositionSignModel{
+		Positions: []*ecv2.PositionSignModel{
 			{
 				SealID: "db4bea687357a1b60003",
 				Page:   1,
@@ -34,30 +34,30 @@ func TestSignDocByPositionV2(t *testing.T) {
 		},
 	}
 
-	signedDocURL, err := c.SignDocByPositionV2(si)
+	signedDocURL, err := c.SignDocByPosition(si)
 	if err != nil {
-		t.Fatalf("SignDocByPositionV2 failed: %v", err)
+		t.Fatalf("SignDocByPosition failed: %v", err)
 	}
 
 	fmt.Println("签名文档路径: ", signedDocURL)
 }
 
-func TestSignDocByKeywordV2(t *testing.T) {
+func TestSignDocByKeyword(t *testing.T) {
 	// 新建客户端
-	opts := &ec.Options{
+	opts := &ecv2.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := ec.NewClient(opts)
+	c, err := ecv2.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &ec.KeywordSignModels{
+	si := &ecv2.KeywordSignModels{
 		DocID:  "53d8992f874b903f01874b9e8b470001",
 		Remark: "文档关键字盖章测试",
-		Keywords: []*ec.KeywordSignModel{
+		Keywords: []*ecv2.KeywordSignModel{
 			{
 				SealID:  "db09f65231610d7a0002",
 				Keyword: "长恨歌",
@@ -78,30 +78,30 @@ func TestSignDocByKeywordV2(t *testing.T) {
 		},
 	}
 
-	signedDocURL, err := c.SignDocByKeywordV2(si)
+	signedDocURL, err := c.SignDocByKeyword(si)
 	if err != nil {
-		t.Fatalf("SignDocByKeywordV2 failed: %v", err)
+		t.Fatalf("SignDocByKeyword failed: %v", err)
 	}
 
 	fmt.Println("签名文档路径: ", signedDocURL)
 }
 
-func TestSignDocByCrossPageV2(t *testing.T) {
+func TestSignDocByCrossPage(t *testing.T) {
 	// 新建客户端
-	opts := &ec.Options{
+	opts := &ecv2.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := ec.NewClient(opts)
+	c, err := ecv2.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &ec.CrossPageSignModels{
+	si := &ecv2.CrossPageSignModels{
 		DocID:  "53d8992f877981db01877984638d0002",
 		Remark: "文档骑缝盖章测试",
-		CrossPages: []*ec.CrossPageSignModel{
+		CrossPages: []*ecv2.CrossPageSignModel{
 			{
 				// SealID: "db4bea6873582a6d0004",
 				SealID: "db4bea687357a1b60003",
@@ -115,30 +115,30 @@ func TestSignDocByCrossPageV2(t *testing.T) {
 		},
 	}
 
-	signedDocURL, err := c.SignDocByCrossPageV2(si)
+	signedDocURL, err := c.SignDocByCrossPage(si)
 	if err != nil {
-		t.Fatalf("SignDocByCrossPageV2 failed: %v", err)
+		t.Fatalf("SignDocByCrossPage failed: %v", err)
 	}
 
 	fmt.Println("签名文档路径: ", signedDocURL)
 }
 
-func TestSignDocByAnnotationV2(t *testing.T) {
+func TestSignDocByAnnotation(t *testing.T) {
 	// 新建客户端
-	opts := &ec.Options{
+	opts := &ecv2.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := ec.NewClient(opts)
+	c, err := ecv2.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &ec.AnnotationSignModels{
+	si := &ecv2.AnnotationSignModels{
 		DocID:  "53d8992f87ad00d80187ad02d64f0002",
 		Remark: "文档注释盖章测试",
-		Annotations: []*ec.AnnotationSignModel{
+		Annotations: []*ecv2.AnnotationSignModel{
 			{
 				SealID: "db4bea6873582a6d0004",
 				Page:   1,
@@ -151,9 +151,9 @@ func TestSignDocByAnnotationV2(t *testing.T) {
 		},
 	}
 
-	signedDocURL, err := c.SignDocByAnnotationV2(si)
+	signedDocURL, err := c.SignDocByAnnotation(si)
 	if err != nil {
-		t.Fatalf("SignDocByAnnotationV2 failed: %v", err)
+		t.Fatalf("SignDocByAnnotation failed: %v", err)
 	}
 
 	fmt.Println("签名文档路径: ", signedDocURL)
@@ -161,20 +161,20 @@ func TestSignDocByAnnotationV2(t *testing.T) {
 
 func TestSignDoc(t *testing.T) {
 	// 新建客户端
-	opts := &ec.Options{
+	opts := &ecv2.Options{
 		AppKey:    APP_KEY_TEST,
 		AppSecret: APP_SECRET_TEST,
 		Addr:      ADDR_TEST,
 	}
-	c, err := ec.NewClient(opts)
+	c, err := ecv2.NewClient(opts)
 	if err != nil {
 		t.Fatalf("NewClient failed: %v", err)
 	}
 
-	si := &ec.SignModels{
+	si := &ecv2.SignModels{
 		DocID:  "8ae58ded87e59b4d0187e5a036130003",
 		Remark: "文档一站式盖章测试",
-		Positions: []*ec.PositionSignModel{
+		Positions: []*ecv2.PositionSignModel{
 			{
 				SealID: "12a775fec6767a040008",
 				Page:   1,
@@ -183,7 +183,7 @@ func TestSignDoc(t *testing.T) {
 				Zoom:   0.8,
 			},
 		},
-		Keywords: []*ec.KeywordSignModel{
+		Keywords: []*ecv2.KeywordSignModel{
 			{
 				SealID:  "12a775fec20227070003",
 				Keyword: "长恨歌",
@@ -202,7 +202,7 @@ func TestSignDoc(t *testing.T) {
 				Zoom:    0.3,
 			},
 		},
-		CrossPages: []*ec.CrossPageSignModel{
+		CrossPages: []*ecv2.CrossPageSignModel{
 			{
 				// SealID: "db4bea6873582a6d0004",
 				SealID: "12a775fec6767a040008",
@@ -214,7 +214,7 @@ func TestSignDoc(t *testing.T) {
 				Zoom:   0.5,
 			},
 		},
-		Annotations: []*ec.AnnotationSignModel{
+		Annotations: []*ecv2.AnnotationSignModel{
 			{
 				SealID: "db4bea6873582a6d0004",
 				Page:   2,

@@ -32,8 +32,8 @@ type PositionSignModels struct {
 	Positions []*PositionSignModel `json:"positions"`
 }
 
-// SignDocByPositionV2 signs the document by the specified position signing info.
-func (c *Client) SignDocByPositionV2(si *PositionSignModels) (signedDocURL string, err error) {
+// SignDocByPosition signs the document by the specified position signing info.
+func (c *Client) SignDocByPosition(si *PositionSignModels) (signedDocURL string, err error) {
 	url := fmt.Sprintf("http://%s/ess/api/v2/user/doc/sign/position", c.opts.Addr)
 
 	data, err := c.postObject(url, si)
@@ -109,8 +109,8 @@ type KeywordSignModels struct {
 	Keywords []*KeywordSignModel `json:"keywords"`
 }
 
-// SignDocByKeywordV2 signs the document by the specified keyword signing info.
-func (c *Client) SignDocByKeywordV2(si *KeywordSignModels) (signedDocURL string, err error) {
+// SignDocByKeyword signs the document by the specified keyword signing info.
+func (c *Client) SignDocByKeyword(si *KeywordSignModels) (signedDocURL string, err error) {
 	url := fmt.Sprintf("http://%s/ess/api/v2/user/doc/sign/keyword", c.opts.Addr)
 
 	data, err := c.postObject(url, si)
@@ -184,8 +184,8 @@ type CrossPageSignModels struct {
 	CrossPages []*CrossPageSignModel `json:"crosspages"`
 }
 
-// SignDocByCrossPageV2 signs the document by the specified cross-page signing info.
-func (c *Client) SignDocByCrossPageV2(si *CrossPageSignModels) (signedDocURL string, err error) {
+// SignDocByCrossPage signs the document by the specified cross-page signing info.
+func (c *Client) SignDocByCrossPage(si *CrossPageSignModels) (signedDocURL string, err error) {
 	url := fmt.Sprintf("http://%s/ess/api/v2/user/doc/sign/crosspage", c.opts.Addr)
 
 	data, err := c.postObject(url, si)
@@ -261,8 +261,8 @@ type AnnotationSignModels struct {
 	Annotations []*AnnotationSignModel `json:"annotations"`
 }
 
-// SignDocByAnnotationV2 signs the document by the specified annotation signing info.
-func (c *Client) SignDocByAnnotationV2(si *AnnotationSignModels) (signedDocURL string, err error) {
+// SignDocByAnnotation signs the document by the specified annotation signing info.
+func (c *Client) SignDocByAnnotation(si *AnnotationSignModels) (signedDocURL string, err error) {
 	url := fmt.Sprintf("http://%s/ess/api/v2/user/doc/sign/annotation", c.opts.Addr)
 
 	data, err := c.postObject(url, si)
